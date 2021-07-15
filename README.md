@@ -2,8 +2,7 @@
 
 ## Introduction
 
-The atf gen report init service allow testers that have submitted their completed test to receive a pdf version of the test certificate.
-This lambda is triggered by DynamoDB Streams and called with the DynamoDB records that have been changed. Turns a single DynamoDB record containing multiple test types into multiple queue messages. one for each test type.
+The atf gen report init service is a lambda which is used to generate atf reports, it will marshall the data received to be prepared and processed for report generation.
 
 ## Dependencies
 
@@ -29,7 +28,7 @@ You will also require Docker to run the service locally if you wish to mock exte
 
 [All in one view](https://wiki.dvsacloud.uk/pages/viewpage.action?pageId=79254695)
 
-### Defect microservice
+### ATF report gen init microservice
 
 More information about technical designs can be found under the [atf report gen init](https://wiki.dvsacloud.uk/display/HVT/Certificate+Generation+Design) section.
 
