@@ -2,7 +2,7 @@ service: cvs-svc-atf-report-gen-init
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs14.x
   stage: dev
   tracing: true # enable tracing
   iamRoleStatements:
