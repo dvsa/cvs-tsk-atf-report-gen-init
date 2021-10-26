@@ -22,7 +22,7 @@
     "lint": "tslint src/**/*.ts tests/**/*.ts",
     "format": "prettier --write .",
     "sonar-scanner": "sonar-scanner",
-    "audit": "npm audit",
+    "audit": "npm audit --prod",
     "package": "mkdir ${ZIP_NAME} && cp package.json package-lock.json ${ZIP_NAME}/ && cp -r .build/src/* ${ZIP_NAME}/ && cd ${ZIP_NAME} && npm ci --production && rm package.json package-lock.json && zip -qr ../${ZIP_NAME}.zip .",
     "tools-setup": "echo 'nothing to do'"
   },
@@ -48,7 +48,7 @@
     "instrument": true
   },
   "dependencies": {
-    "aws-lambda": "^0.1.2",
+    "aws-lambda": "^1.0.6",
     "aws-sdk": "^2.562.0",
     "aws-xray-sdk": "^2.3.3",
     "node-yaml": "^3.2.0",
