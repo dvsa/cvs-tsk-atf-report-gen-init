@@ -4,13 +4,13 @@ import {
   DynamoDBRecord,
   Handler,
   SQSEvent,
-} from "aws-lambda";
-import { AWSError } from "aws-sdk";
-import { Injector } from "../models/injector/Injector";
-import { SQService } from "../services/SQService";
-import { PromiseResult } from "aws-sdk/lib/request";
-import { SendMessageResult } from "aws-sdk/clients/sqs";
-import { StreamService } from "../services/StreamService";
+} from 'aws-lambda';
+import { AWSError } from 'aws-sdk';
+import { PromiseResult } from 'aws-sdk/lib/request';
+import { SendMessageResult } from 'aws-sdk/clients/sqs';
+import { Injector } from '../models/injector/Injector';
+import { SQService } from '../services/SQService';
+import { StreamService } from '../services/StreamService';
 
 /**
  * λ function to process a DynamoDB stream of test results into a queue for certificate generation.
@@ -21,10 +21,10 @@ import { StreamService } from "../services/StreamService";
 const atfGenInit: Handler = async (
   event: SQSEvent,
   context?: Context,
-  callback?: Callback
+  callback?: Callback,
 ): Promise<void | Array<PromiseResult<SendMessageResult, AWSError>>> => {
   if (!event) {
-    console.error("ERROR: event is not defined.");
+    console.error('ERROR: event is not defined.');
     return;
   }
 
@@ -38,10 +38,12 @@ const atfGenInit: Handler = async (
   > = [];
 
   // Add each visit record to the queue
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises,@typescript-eslint/require-await
   records.forEach(async (record: DynamoDBRecord) => {
     sendMessagePromises.push(sqService.sendMessage(JSON.stringify(record)));
   });
 
+  // eslint-disable-next-line consistent-return
   return Promise.all(sendMessagePromises).catch((error: AWSError) => {
     console.error(error);
     throw error;
