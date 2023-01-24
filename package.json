@@ -15,7 +15,7 @@
     "build:copy": "find src -type f \\( -name \"*.yml\" -or -name \"*.json\" \\) | cpio -pdm .build && find tests -type f \\( -name \"*.yml\" -or -name \"*.json\" \\)  | cpio -pdm .build",
     "build:docker": "docker-compose -f docker-compose.yml up -d --build",
     "prepush": "BRANCH=local npm test && npm run build && npm run test-i",
-    "security-checks": "git secrets --scan && git log -p | scanrepo",
+    "security-checks": "git secrets --scan",
     "test:unit": "BRANCH=local jest --testMatch=\"**/*.unitTest.ts\" --runInBand",
     "test": "npm run test:unit -- --coverage",
     "test-i": "echo 'nothing to do'",

@@ -16,8 +16,6 @@ Please install and run the following securiy programs as part of your developmen
 - [git-secrets](https://github.com/awslabs/git-secrets)
   After installing, do a one-time set up with `git secrets --register-aws`. Run with `git secrets --scan`.
 
-- [repo-security-scanner](https://github.com/UKHomeOffice/repo-security-scanner)
-
 These will be run as part of your projects hooks so you don't accidentally introduce any new security vulnerabilities.
 
 You will also require Docker to run the service locally if you wish to mock external dependencies.
@@ -68,11 +66,11 @@ sqs:
     params:
       region: localhost
       endpoint: http://sqs:9324
-      apiVersion: "2012-11-05"
+      apiVersion: '2012-11-05'
     queueName: atf-gen-q
   remote:
     params:
-      apiVersion: "2012-11-05"
+      apiVersion: '2012-11-05'
     queueName: atf-gen-q
 ```
 
@@ -139,8 +137,10 @@ _Manual_:
 ## Linting
 
 ### Linting during development
+
 Please run this command: `npm run lint:fix`
 This command will display linting errors and fix the ones that it can
 
 ### Linting for CI and Sonar Qube
+
 This command `npm run lint` will produce a `report.json` file in the root directory. This file will be read by Sonar Qube to display stats about code quality.
