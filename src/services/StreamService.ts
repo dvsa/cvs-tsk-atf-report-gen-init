@@ -1,5 +1,5 @@
-import { DynamoDBRecord, SQSEvent } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
+import { DynamoDBRecord, SQSEvent } from 'aws-lambda';
+import { DynamoDB } from 'aws-sdk';
 
 class StreamService {
   /**
@@ -8,18 +8,16 @@ class StreamService {
    * @param event
    */
   public static getVisitsStream(event: SQSEvent): DynamoDBRecord[] {
-    return event.Records.filter((record: DynamoDBRecord) => {
+    return event.Records.filter((record: DynamoDBRecord) =>
       // Retrieve "MODIFY" events
-      return (
-        record.eventName === "MODIFY" &&
-        record.dynamodb &&
-        record.dynamodb.NewImage &&
-        record.dynamodb.NewImage.activityType.S === "visit"
-      );
-    }).map((record: DynamoDBRecord) => {
+      (
+        record.eventName === 'MODIFY'
+        && record.dynamodb
+        && record.dynamodb.NewImage
+        && record.dynamodb.NewImage.activityType.S === 'visit'
+      )).map((record: DynamoDBRecord) =>
       // Convert to JS object
-      return DynamoDB.Converter.unmarshall(record.dynamodb!.NewImage!);
-    });
+      DynamoDB.Converter.unmarshall(record.dynamodb!.NewImage!));
   }
 }
 
