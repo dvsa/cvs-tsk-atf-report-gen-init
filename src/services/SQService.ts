@@ -1,3 +1,4 @@
+import { config as AWSConfig, AWSError } from 'aws-sdk';
 import SQS, {
   GetQueueUrlResult,
   MessageBodyAttributeMap,
@@ -5,11 +6,10 @@ import SQS, {
   SendMessageResult,
 } from 'aws-sdk/clients/sqs';
 import { PromiseResult } from 'aws-sdk/lib/request';
-import { AWSError, config as AWSConfig } from 'aws-sdk';
-import {captureAWSClient} from "aws-xray-sdk";
+import { captureAWSClient } from 'aws-xray-sdk';
 import { Service } from '../models/injector/ServiceDecorator';
 import { Configuration } from '../utils/Configuration';
-import { Config } from "../utils/types";
+import { Config } from '../utils/types';
 
 /**
  * Service class for interfacing with the Simple Queue Service
@@ -25,7 +25,7 @@ class SQService {
    * @param sqsClient - The Simple Queue Service client
    */
   constructor(sqsClient: SQS) {
-    const config = Configuration.getInstance().getConfig() as Config;
+    const config = Configuration.getInstance().getConfig();
     this.sqsClient = captureAWSClient(sqsClient) as SQS;
 
     if (!config.sqs) {
@@ -33,9 +33,10 @@ class SQService {
     }
 
     // Not defining BRANCH will default to local
-    const env: string = !process.env.BRANCH || process.env.BRANCH === 'local'
-      ? 'local'
-      : 'remote';
+    const env: string =
+      !process.env.BRANCH || process.env.BRANCH === 'local'
+        ? 'local'
+        : 'remote';
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.config = config.sqs[env];
@@ -77,7 +78,7 @@ class SQService {
    * Get the messages in the queue
    */
   public async getMessages(): Promise<
-  PromiseResult<ReceiveMessageResult, AWSError>
+    PromiseResult<ReceiveMessageResult, AWSError>
   > {
     // Get the queue URL for the provided queue name
     const queueUrlResult: GetQueueUrlResult = await this.sqsClient

@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import { Context } from 'aws-lambda';
 import { atfGenInit } from '../../src/functions/atfGenInit';
 import { SQService } from '../../src/services/SQService';
