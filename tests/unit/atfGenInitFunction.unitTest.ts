@@ -1,13 +1,13 @@
-import mockContext = require('aws-lambda-mock-context');
+import { Context } from 'aws-lambda';
+import { atfGenInit } from '../../src/functions/atfGenInit';
 import { SQService } from '../../src/services/SQService';
 import { StreamService } from '../../src/services/StreamService';
-import { atfGenInit } from '../../src/functions/atfGenInit';
 
 describe('retroGenInit  Function', () => {
-  const ctx = mockContext();
+  const ctx = '' as unknown as Context;
   afterAll(() => {
     jest.restoreAllMocks();
-    jest.resetModuleRegistry();
+    jest.resetModules();
   });
   describe('with good event', () => {
     it('should invoke SQS service with correct params', async () => {
@@ -16,9 +16,7 @@ describe('retroGenInit  Function', () => {
       StreamService.getVisitsStream = jest
         .fn()
         .mockReturnValue([{ test: 'thing' }]);
-      await atfGenInit({}, ctx, () => {
-
-      });
+      await atfGenInit({}, ctx, () => {});
       expect(sendMessage).toHaveBeenCalledWith(
         JSON.stringify({ test: 'thing' }),
       );
@@ -34,8 +32,7 @@ describe('retroGenInit  Function', () => {
 
       expect.assertions(1);
       try {
-        await atfGenInit({}, ctx, () => {
-        });
+        await atfGenInit({}, ctx, () => {});
       } catch (e) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(e.message).toEqual(myError.message);
