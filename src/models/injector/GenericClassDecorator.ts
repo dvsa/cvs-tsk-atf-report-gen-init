@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Type for what object is instances of
  */
-export type Type<T> = new (...args: unknown[]) => T;
+export type Type<T> = new (...args: any[]) => T;
 
 /**
  * Generic `ClassDecorator` type
