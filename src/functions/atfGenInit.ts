@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Callback,
   Context,
@@ -6,8 +7,8 @@ import {
   SQSEvent,
 } from 'aws-lambda';
 import { AWSError } from 'aws-sdk';
-import { PromiseResult } from 'aws-sdk/lib/request';
 import { SendMessageResult } from 'aws-sdk/clients/sqs';
+import { PromiseResult } from 'aws-sdk/lib/request';
 import { Injector } from '../models/injector/Injector';
 import { SQService } from '../services/SQService';
 import { StreamService } from '../services/StreamService';

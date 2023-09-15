@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AWSError } from 'aws-sdk';
 import SQS, { CreateQueueRequest } from 'aws-sdk/clients/sqs';
 
@@ -28,17 +30,18 @@ class SQMockClient {
     callback?: (err: AWSError, data: SQS.Types.GetQueueUrlResult) => void,
   ): any {
     return {
-      promise: () => new Promise((resolve, reject) => {
-        const foundQueue = this.queues.find(
-          (queue) => queue.queueName === params.QueueName,
-        );
+      promise: () =>
+        new Promise((resolve, reject) => {
+          const foundQueue = this.queues.find(
+            (queue) => queue.queueName === params.QueueName,
+          );
 
-        if (foundQueue) {
-          resolve({ QueueUrl: foundQueue.queueURL });
-        }
+          if (foundQueue) {
+            resolve({ QueueUrl: foundQueue.queueURL });
+          }
 
-        reject(new Error(`Queue ${params.QueueName} was not found.`));
-      }),
+          reject(new Error(`Queue ${params.QueueName} was not found.`));
+        }),
     };
   }
 
@@ -52,20 +55,21 @@ class SQMockClient {
     callback?: (err: AWSError, data: SQS.Types.SendMessageResult) => void,
   ): any {
     return {
-      promise: () => new Promise((resolve, reject) => {
-        const foundQueue = this.queues.find(
-          (queue) => queue.queueURL === params.QueueUrl,
-        );
+      promise: () =>
+        new Promise((resolve, reject) => {
+          const foundQueue = this.queues.find(
+            (queue) => queue.queueURL === params.QueueUrl,
+          );
 
-        if (foundQueue) {
-          foundQueue.queueMessages.push(params.MessageBody);
-          resolve({
-            MessageId: 'mock',
-          });
-        }
+          if (foundQueue) {
+            foundQueue.queueMessages.push(params.MessageBody);
+            resolve({
+              MessageId: 'mock',
+            });
+          }
 
-        reject(new Error(`Queue ${params.QueueUrl} was not found.`));
-      }),
+          reject(new Error(`Queue ${params.QueueUrl} was not found.`));
+        }),
     };
   }
 
@@ -79,17 +83,18 @@ class SQMockClient {
     callback?: (err: AWSError, data: SQS.Types.ReceiveMessageResult) => void,
   ): any {
     return {
-      promise: () => new Promise((resolve, reject) => {
-        const foundQueue = this.queues.find(
-          (queue) => queue.queueURL === params.QueueUrl,
-        );
+      promise: () =>
+        new Promise((resolve, reject) => {
+          const foundQueue = this.queues.find(
+            (queue) => queue.queueURL === params.QueueUrl,
+          );
 
-        if (foundQueue) {
-          resolve({ Messages: [{ Body: foundQueue.queueMessages }] });
-        }
+          if (foundQueue) {
+            resolve({ Messages: [{ Body: foundQueue.queueMessages }] });
+          }
 
-        reject(new Error(`Queue ${params.QueueUrl} was not found.`));
-      }),
+          reject(new Error(`Queue ${params.QueueUrl} was not found.`));
+        }),
     };
   }
 

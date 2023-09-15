@@ -1,5 +1,5 @@
 import * as yml from 'node-yaml';
-import { Config } from "./types";
+import { Config } from './types';
 
 class Configuration {
   private static instance: Configuration;
@@ -12,6 +12,7 @@ class Configuration {
 
     // Replace environment variable references
     let stringifiedConfig: string = JSON.stringify(this.config);
+    // eslint-disable-next-line security/detect-unsafe-regex
     const envRegex = /\${(\w+\b):?(\w+\b)?}/g;
     const matches: RegExpMatchArray | null = stringifiedConfig.match(envRegex);
 
@@ -50,7 +51,7 @@ class Configuration {
    * Retrieves the entire config as an object
    * @returns any
    */
-  public getConfig(): any {
+  public getConfig() {
     return this.config;
   }
 }

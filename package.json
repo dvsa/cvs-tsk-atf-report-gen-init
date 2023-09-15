@@ -1,11 +1,11 @@
 {
-  "name": "cvs-tsk-retro-gen-init",
+  "name": "cvs-tsk-atf-report-gen-init",
   "version": "0.0.1",
   "description": "Certificate generation initiation task",
   "main": "handler.js",
   "engines": {
-    "node": "14.*",
-    "npm": "5.6.0"
+    "node": "18.*",
+    "npm": "8.*"
   },
   "scripts": {
     "start": "serverless invoke local -f main --path tests/resources/stream-event.json",
@@ -17,9 +17,9 @@
     "prepush": "BRANCH=local npm test && npm run build && npm run test-i",
     "security-checks": "git secrets --scan && git log -p | scanrepo",
     "test:unit": "BRANCH=local jest --testMatch=\"**/*.unitTest.ts\" --runInBand",
-    "test": "npm run test:unit -- --coverage",
+    "test": "npm run test:unit -- --coverage --detectOpenHandles",
     "test-i": "echo 'nothing to do'",
-    "lint": "eslint -f json -o report.json --ext .ts .",
+    "lint": "eslint '*/**/*.ts' --quiet",
     "lint:fix": "eslint --ext .ts . --fix",
     "format": "prettier --write .",
     "sonar-scanner": "sonar-scanner",
@@ -67,7 +67,7 @@
     "@types/node": "^10.17.3",
     "audit-filter": "^0.5.0",
     "aws-lambda-mock-context": "^3.2.1",
-    "eslint": "^6.0.0",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
@@ -79,7 +79,7 @@
     "serverless-plugin-typescript": "^1.1.5",
     "ts-jest": "^24.1.0",
     "ts-node-register": "^1.0.0",
-    "typescript": "^3.2.4"
+    "typescript": "^4.4.4"
   },
   "jestSonar": {
     "reportPath": ".reports",
